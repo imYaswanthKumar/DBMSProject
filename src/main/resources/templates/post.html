@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="base :: head"></head>
+<div th:if="${designation} == 'Company'">
+    <nav th:replace="base :: company-navbar"></nav>
+</div>
+<div th:if="${designation} == 'Student'">
+    <nav th:replace="base :: student-navbar"></nav>
+</div>
+<body>
+<div class="card m-3">
+    <div class="card-header bg-dark text-white">
+        <h5 th:text="${post.title}" class="card-title"></h5>
+    </div>
+    <div class="card-body">
+        <div th:text="${post.content}" class="card-text "></div>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <div th:text="'BY: ' + ${authorName}"></div>
+        <div class="d-flex">
+            <div>Posted On: </div>
+            <div th:text="${#dates.format(post.timestamp, 'dd-MM-yyyy')}" class="mx-2"></div>
+            <div th:text="${#dates.format(post.timestamp, 'HH:mm')}"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="base :: head"></head>
+<nav th:replace="base :: navbar"></nav>
+<body>
+<form class="container w-50 my-4" th:action="@{/signup}" method="post">
+    <h3 class="text-center">Signup</h3>
+    <div class="border p-3 bg-light">
+        <div class="form-group">
+            <label class="form-label required" for="username">Roll No</label>
+            <input type="text" id="username" name="username" class="form-control" required >
+        </div>
+        <div class="form-group my-2">
+            <label class="form-label required" for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required minlength="8" maxlength="255">
+        </div>
+        <div class="form-group my-2">
+            <label class="form-label required" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required minlength="8" maxlength="255">
+        </div>
+        <div class = "error">
+            <span th:text = "${error}" class="text-danger"></span>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+            <button type="submit" class="btn btn-dark my-3">Submit</button>
+            <a th:href="@{/login}" class="mt-4 text-dark"> Already registered? LogIn</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

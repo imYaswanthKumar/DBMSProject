@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head th:replace="base :: head"></head>
+<body>
+<nav th:replace="base :: student-navbar"></nav>
+
+<div class="d-flex justify-content-end" >
+    <a href="/profile/edit">
+        <button class="btn btn-icon btn-dark float-end align-items-end mx-1 my-2" type="button">
+            <span class="btn-inner--text">Edit Profile</span>
+        </button>
+    </a>
+    <a href="/changepassword">
+        <button class="btn btn-icon btn-dark float-end mx-1 my-2" type="button">
+            <span class="btn-inner--text">Change Password</span>
+        </button>
+    </a>
+</div>
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px"
+                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                     alt="Avatar">
+                <span class="font-weight-bold" th:text="${student.firstName}+' '+${student.middleName == null ? '' : student.middleName + ' '} + ${student.lastName}"></span>
+                <span class="text-black-50" th:text="${student.instituteID}"></span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right" style="flex:0 0 71%; max-width: 71%;">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+
+                </div>
+                <div class="row mt-3 ">
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Roll No</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.rollNo}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">First Name</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.firstName}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Middle Name</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.middleName}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Last Name</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.lastName}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Street</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.street}"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">City</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.city}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">State</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.state}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Pincode</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.postalCode}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Institute ID</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.instituteID}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Personal ID</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.personalID}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Gender</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.sex}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Mobile No</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.mobileNumber}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Date of Birth</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.dateOfBirth}"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Programme</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.programme}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Branch</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.branch}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Total Backlogs</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.totalBacklogs}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Active Backlogs</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.activeBacklogs}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">CGPA</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.cpi}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Class X Board Name</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.classXBoard}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Class X Percentage</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.Xpercentage}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Class XII Board Name</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.classXIIBoard}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Class XII Percentage</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.XIIpercentage}"></span>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label class="labels">Year of Passing</label>
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <p class="text-muted">
+                                <span th:text="${student.passingYear}"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

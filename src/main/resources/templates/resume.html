@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="base :: head"></head>
+<nav th:replace="base :: student-navbar"></nav>
+<body>
+<div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr">
+        <div th:each="entity : ${resume}" class="card m-2">
+            <div th:class="${entity.isVerified} ? 'border border-success border-3 rounded-1' : 'border border-danger border-3 rounded-1'">
+                <div class="bg-dark text-white p-2">
+                    <div th:text="${entity.resumeName}" class="m-2"></div>
+                    <a th:href="${'https://drive.google.com/file/d/'+entity.resumeLink+'/view?usp=drive_link'}" class="m-2" target="_blank">See_Resume</a>
+                </div>
+                <div th:text="${entity.isVerified} ? 'Verified' : 'Not Verified'"
+                     th:class="${entity.isVerified} ? 'text-success text-center' : 'text-danger text-center'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container section my-5" id="add-roles">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <p class="text-center">Want to add more resumes?</p>
+                <a href="/resume/create" class="btn btn-dark btn-lg" style="width: 100%">Add a Resume</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
