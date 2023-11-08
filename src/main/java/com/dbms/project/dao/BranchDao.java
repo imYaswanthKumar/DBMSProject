@@ -23,10 +23,10 @@ public class BranchDao {
     }
 
     public void insertBranch(Branch branch) {
-        final String sql = "INSERT INTO Branch(BranchName) VALUES(?)";
+        final String sql = "INSERT INTO BRANCH(BRANCHNAME) VALUES(?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, branch.getBranchName());
             return ps;
         }, keyholder);
@@ -35,32 +35,32 @@ public class BranchDao {
 
     public void CreateTable(){
         String sql = "CREATE TABLE IF NOT EXISTS BRANCH(" +
-                "BranchName VARCHAR(100)," +
-                "BranchID int AUTO_INCREMENT primary key" +
+                "BRANCHNAME VARCHAR(100)," +
+                "BRANCHID INT AUTO_INCREMENT PRIMARY KEY" +
                 ")";
-        String sql2="ALTER TABLE BRANCH ADD UNIQUE INDEX (`BranchName`)";
-        jdbcTemplate.execute(sql);
-        jdbcTemplate.execute(sql2);
+        String sql2="ALTER TABLE BRANCH ADD UNIQUE INDEX (`BRANCHNAME`)";
+        jdbcTemplate.execute(sql.toUpperCase());
+        jdbcTemplate.execute(sql2.toUpperCase());
     }
 
     public Integer getBranchID(String BranchName){
-        String sql = "SELECT BranchID FROM BRANCH WHERE BranchName = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{BranchName}, Integer.class);
+        String sql = "SELECT BRANCHID FROM BRANCH WHERE BRANCHNAME = ?";
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{BranchName}, Integer.class);
     }
 
     public String getBranchName(Integer branchID) {
-        String sql = "SELECT BranchName FROM BRANCH WHERE BranchID = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[] {branchID}, String.class);
+        String sql = "SELECT BRANCHNAME FROM BRANCH WHERE BRANCHID = ?";
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[] {branchID}, String.class);
     }
 
     public List<Branch> getAllBranches(){
         String sql = "SELECT * FROM BRANCH";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Branch.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(Branch.class));
     }
 
     public void insertAll(){
         String sql = "SELECT COUNT(*) FROM BRANCH";
-        int cnt = jdbcTemplate.queryForObject(sql, Integer.class);
+        int cnt = jdbcTemplate.queryForObject(sql.toUpperCase(), Integer.class);
         if(cnt == 0){
             Branch b1 = new Branch();
             b1.setBranchName("Computer Science and Engineering"); insertBranch(b1);
