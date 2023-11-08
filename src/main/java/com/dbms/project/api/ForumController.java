@@ -84,7 +84,7 @@ public class ForumController {
             model.addAttribute("posts", posts);
             model.addAttribute("authors", authors);
             model.addAttribute("designation", user.getDesignation());
-            return "/forum";
+            return "forum";
 
         }
         else if(user.getDesignation().equals("Company")){
@@ -97,7 +97,7 @@ public class ForumController {
             model.addAttribute("posts", posts);
             model.addAttribute("authors", authors);
             model.addAttribute("designation", user.getDesignation());
-            return "/forum";
+            return "forum";
         }
         else{
             List<Post> posts = postService.getAllPosts();
@@ -112,7 +112,7 @@ public class ForumController {
             model.addAttribute("posts", posts);
             model.addAttribute("authors", authors);
             model.addAttribute("designation", user.getDesignation());
-            return "/forum";
+            return "forum";
         }
     }
 }
