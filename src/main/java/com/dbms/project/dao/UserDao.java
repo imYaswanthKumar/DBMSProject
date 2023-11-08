@@ -34,10 +34,10 @@ public class UserDao {
     }
 
     public void CreateTable(){
-        String sql = "CREATE TABLE IF NOT EXISTS USER(username int primary key, " +
-                "password varchar(255), " +
-                "designation ENUM('Student', 'Admin', 'Company') NOT NULL DEFAULT ('Student'))";
-        jdbcTemplate.execute(sql.toUpperCase());
+        String sql = "CREATE TABLE IF NOT EXISTS USER(USERNAME int primary key, " +
+                "PASSWORD varchar(255), " +
+                "DESIGNATION ENUM('Student', 'Admin', 'Company') NOT NULL DEFAULT ('Student'))";
+        jdbcTemplate.execute(sql);
     }
 
 
@@ -73,7 +73,7 @@ public class UserDao {
 
     public void insertAdmin(){
         String sql = "SELECT COUNT(*) FROM USER WHERE DESIGNATION = \"Admin\"";
-        int count = jdbcTemplate.queryForObject(sql.toUpperCase(), Integer.class);
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
         if(count > 0) return;
         User user = new User();
         user.setUsername(1);
