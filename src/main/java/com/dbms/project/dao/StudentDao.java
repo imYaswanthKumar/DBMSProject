@@ -55,7 +55,7 @@ public class StudentDao {
                     "passingYear = ? " +
                     "WHERE rollNo = ?";
 
-            jdbcTemplate.update(updateSql,
+            jdbcTemplate.update(updateSql.toUpperCase(),
                     student.getFirstName(),
                     student.getMiddleName(),
                     student.getLastName(),
@@ -90,7 +90,7 @@ public class StudentDao {
             "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(insertSql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, student.getFirstName());
             ps.setString(2, student.getMiddleName());
             ps.setString(3, student.getLastName());
@@ -120,7 +120,7 @@ public class StudentDao {
     }
     public boolean studentExists(Integer rollNo) {
         String query = "SELECT count(*) FROM student WHERE rollNo = ?";
-        int count = jdbcTemplate.queryForObject(query, Integer.class, rollNo);
+        int count = jdbcTemplate.queryForObject(query.toUpperCase(), Integer.class, rollNo);
         return count > 0;
     }
 
@@ -152,16 +152,16 @@ public class StudentDao {
                 "FOREIGN KEY (rollNo) references User(username) on delete cascade on update cascade," +
                 "FOREIGN KEY (branch) references Branch(branchName) on delete cascade on update cascade" +
                 ")";
-        jdbcTemplate.execute(sql);
+        jdbcTemplate.execute(sql.toUpperCase());
     }
 
     public Student getStudentByRollNo(Integer rollNo) {
             String sql2 = "SELECT * from student where rollNo = ?";
-            return jdbcTemplate.queryForObject(sql2, new Object[]{rollNo}, new BeanPropertyRowMapper<>(Student.class));
+            return jdbcTemplate.queryForObject(sql2.toUpperCase(), new Object[]{rollNo}, new BeanPropertyRowMapper<>(Student.class));
     }
 
     public List<Student> getAllStudents(){
         String sql = "SELECT * FROM STUDENT";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Student.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(Student.class));
     }
 }
