@@ -36,7 +36,7 @@ public class PostDao {
         final String sql = "INSERT INTO Post(title, content, `timestamp`, authorId) VALUES(?, ?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, post.getTitle());
             ps.setString(2, post.getContent());
             ps.setTimestamp(3, post.getTimestamp());
@@ -54,25 +54,25 @@ public class PostDao {
                 "authorid int," +
                 "FOREIGN KEY (authorID) references User(username) on delete cascade on update cascade" +
                 ")";
-        jdbcTemplate.execute(sql);
+        jdbcTemplate.execute(sql.toUpperCase());
     }
     public List<Post> getAllPosts(){
         final String sql = "SELECT * from POST";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Post.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(Post.class));
     }
 
     public List<Post> getPostsByUser(Integer username) {
         final String sql = "SELECT * from POST where AUTHORID = ?";
-        return jdbcTemplate.query(sql, new Object[]{username}, new BeanPropertyRowMapper<>(Post.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new Object[]{username}, new BeanPropertyRowMapper<>(Post.class));
     }
 
     public Post getPostByID(Integer postid) {
         final String sql = "SELECT * from POST where POSTID = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{postid}, new BeanPropertyRowMapper<>(Post.class));
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{postid}, new BeanPropertyRowMapper<>(Post.class));
     }
     public Integer getLastPost(){
         final String sql = "SELECT MAX(postId) from POST";
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), Integer.class);
     }
     public String getName(Integer ID){
         String designation = userService.getDesignationFromID(ID);
