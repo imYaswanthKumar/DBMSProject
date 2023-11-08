@@ -21,10 +21,10 @@ public class CompanyDao {
     @Autowired
     public CompanyDao(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
     public void insertCompany(Company company) {
-        final String sql = "INSERT INTO Company(companyID, companyName, HREmail, HRPhone) VALUES(?, ?, ?, ?)";
+        final String sql = "INSERT INTO COMPANY(COMPANYID, COMPANYNAME, HREMAIL, HRPHONE) VALUES(?, ?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, company.getCompanyID());
             ps.setString(2, company.getCompanyName());
             ps.setString(3, company.getHREmail());
@@ -36,27 +36,27 @@ public class CompanyDao {
 
     public void CreateTable(){
         String sql = "CREATE TABLE IF NOT EXISTS COMPANY(" +
-                "companyID int primary key, " +
-                "companyName varchar(100), " +
-                "HREmail varchar(100), " +
-                "HRPhone char(10)," +
-                "FOREIGN KEY (companyID) references User(username) on delete cascade on update cascade" +
+                "COMPANYID int primary key, " +
+                "COMPANYNAME varchar(100), " +
+                "HREMAIL varchar(100), " +
+                "HRPHONE char(10)," +
+                "FOREIGN KEY (COMPANYID) REFERENCES USER(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE" +
                 ")";
-        jdbcTemplate.execute(sql);
+        jdbcTemplate.execute(sql.toUpperCase());
     }
     public List<Company> getAllCompany(){
-        final String sql = "SELECT * from COMPANY";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Company.class));
+        final String sql = "SELECT * FROM COMPANY";
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(Company.class));
     }
 
     public Company getCompanyByID(Integer ID){
-        String sql = "SELECT * from COMPANY where COMPANYID = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{ID}, new BeanPropertyRowMapper<>(Company.class));
+        String sql = "SELECT * FROM COMPANY where COMPANYID = ?";
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{ID}, new BeanPropertyRowMapper<>(Company.class));
     }
 
     public boolean companyExists(Integer ID) {
         String query = "SELECT count(*) FROM company WHERE companyID = ?";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{ID}, Integer.class);
+        int count = jdbcTemplate.queryForObject(query.toUpperCase(), new Object[]{ID}, Integer.class);
         return count > 0;
     }
 
@@ -67,7 +67,7 @@ public class CompanyDao {
                 "HRPhone = ? " +
                 "where companyID = ? ";
 
-        jdbcTemplate.update(updateSql,
+        jdbcTemplate.update(updateSql.toUpperCase(),
                 company.getCompanyName(),
                 company.getHREmail(),
                 company.getHRPhone(),
@@ -77,6 +77,6 @@ public class CompanyDao {
 
     public List<Company> getAllCompanies(){
         String sql = "SELECT * FROM COMPANY";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Company.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(Company.class));
     }
 }
