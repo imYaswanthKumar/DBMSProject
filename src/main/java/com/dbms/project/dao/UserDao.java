@@ -25,7 +25,7 @@ public class UserDao {
         final String sql = "INSERT INTO User(username, password, designation) VALUES(?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, Integer.parseInt(user.getUsername()));
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getDesignation());
@@ -37,35 +37,35 @@ public class UserDao {
         String sql = "CREATE TABLE IF NOT EXISTS USER(username int primary key, " +
                 "password varchar(255), " +
                 "designation ENUM('Student', 'Admin', 'Company') NOT NULL DEFAULT ('Student'))";
-        jdbcTemplate.execute(sql);
+        jdbcTemplate.execute(sql.toUpperCase());
     }
 
 
     public List<User> getAllUsers() {
         final String sql = "SELECT * from USER";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new BeanPropertyRowMapper<>(User.class));
     }
 
     public Optional<User> findUserByUsername(Integer username) {
         final String sql = "SELECT * from user WHERE username = ?";
-        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[] {username}, new BeanPropertyRowMapper<>(User.class)));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[] {username}, new BeanPropertyRowMapper<>(User.class)));
     }
 
     public boolean alreadyExists(String username){
         String query = "SELECT COUNT(*) FROM user WHERE username = ?";
-        int rs =  this.jdbcTemplate.queryForObject(query, new Object[]{username}, Integer.class);
+        int rs =  this.jdbcTemplate.queryForObject(query.toUpperCase(), new Object[]{username}, Integer.class);
         return (rs != 0);
     }
     public String getDesignationFromID(Integer ID){
         String sql = "SELECT DESIGNATION FROM USER WHERE username = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{ID}, String.class);
+        return jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{ID}, String.class);
     }
     public void updateUser(User user){
         final String updateSql = "UPDATE user SET " +
                 "password = ? " +
                 "WHERE username = ?";
 
-        jdbcTemplate.update(updateSql,
+        jdbcTemplate.update(updateSql.toUpperCase(),
                 user.getPassword(),
                 user.getUsername()
         );
@@ -73,7 +73,7 @@ public class UserDao {
 
     public void insertAdmin(){
         String sql = "SELECT COUNT(*) FROM USER WHERE DESIGNATION = \"Admin\"";
-        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+        int count = jdbcTemplate.queryForObject(sql.toUpperCase(), Integer.class);
         if(count > 0) return;
         User user = new User();
         user.setUsername(1);
