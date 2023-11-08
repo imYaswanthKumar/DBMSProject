@@ -27,7 +27,7 @@ public class ResumeDao {
         final String sql = "INSERT INTO Resume(resumeName, resumeLink, rollNo,isVerified) VALUES(?, ?, ?,?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, resume.getResumeName());
             ps.setString(2, resume.getResumeLink());
             ps.setInt(3, resume.getRollNo());
@@ -45,35 +45,35 @@ public class ResumeDao {
                 "primary key(rollNo, resumeName), " +
                 "FOREIGN KEY (rollNo) references Student(rollNo) on delete cascade on update cascade" +
                 ")";
-        jdbcTemplate.execute(sql);
+        jdbcTemplate.execute(sql.toUpperCase());
     }
 
 
     public List<Resume> getResumesByUser(Integer username) {
         final String sql = "SELECT * from RESUME where rollNo = ?";
-        return jdbcTemplate.query(sql, new Object[]{username}, new BeanPropertyRowMapper<>(Resume.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new Object[]{username}, new BeanPropertyRowMapper<>(Resume.class));
     }
 
     public List<Resume> getVerifiedResumesByUser(Integer username) {
         final String sql = "SELECT * from RESUME where rollNo = ? and IsVerified = 1";
-        return jdbcTemplate.query(sql, new Object[]{username}, new BeanPropertyRowMapper<>(Resume.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new Object[]{username}, new BeanPropertyRowMapper<>(Resume.class));
     }
 
     public String getResumeLinkByKey(Integer rollNo, String resumeName){
         final String sql = "SELECT RESUMELINK from RESUME where rollNo = ? and resumeName = ?";
-        return (jdbcTemplate.queryForObject(sql, new Object[]{rollNo, resumeName}, String.class));
+        return (jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{rollNo, resumeName}, String.class));
     }
 
     public Resume getResumeByKey(Integer rollNo, String resumeName){
         final String sql = "SELECT * from RESUME where rollNo = ? and resumeName = ?";
-        return (jdbcTemplate.queryForObject(sql, new Object[]{rollNo, resumeName}, new BeanPropertyRowMapper<>(Resume.class)));
+        return (jdbcTemplate.queryForObject(sql.toUpperCase(), new Object[]{rollNo, resumeName}, new BeanPropertyRowMapper<>(Resume.class)));
     }
 
     public void updateResume(String resumeName, Integer rollNo){
         final String sql="UPDATE resume SET isVerified=1 where resumeName = ? and rollNo = ?";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, resumeName);
             ps.setInt(2, rollNo);
             return ps;
@@ -82,7 +82,7 @@ public class ResumeDao {
 
     public List<Resume> getAllResumes() {
         final String sql = "SELECT * from RESUME";
-        return jdbcTemplate.query(sql, new Object[]{}, new BeanPropertyRowMapper<>(Resume.class));
+        return jdbcTemplate.query(sql.toUpperCase(), new Object[]{}, new BeanPropertyRowMapper<>(Resume.class));
     }
 
 }
