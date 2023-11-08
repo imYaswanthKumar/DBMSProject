@@ -47,7 +47,7 @@ public class RoleDao {
                 "PRIMARY KEY (ROLENAME, COMPANYID)," +
                 "FOREIGN KEY (companyID) references Company(companyID) on delete cascade on update cascade" +
                 ")";
-        jdbcTemplate.execute(roleSql);
+        jdbcTemplate.execute(roleSql.toUpperCase());
 
     }
 
@@ -56,7 +56,7 @@ public class RoleDao {
                 "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(insertSql.toUpperCase(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, role.getRoleName());
             ps.setInt(2, role.getCompanyID());
             ps.setString(3, role.getJobDescription());
@@ -84,16 +84,16 @@ public class RoleDao {
         // Format the Java Date to a MySQL DATETIME string
         String mysqlDatetime = mysqlDateFormat.format(javaDate);
         final String getRolesSql = "SELECT * from ROLE AS S where IF(?, BTECH = 1, IDD = 1) and MINCPI <= ? and MINPASSINGYEAR <= ? and MAXPASSINGYEAR >= ? and MAXACTIVEBACKLOGS >= ? and MAXTOTALBACKLOGS >= ? and (? & BRANCHVALUE) > 0 and DEADLINE>?";
-        return jdbcTemplate.query(getRolesSql, new Object[]{student.getProgramme().equals("BTech"),student.getCpi(),student.getPassingYear(), student.getPassingYear(), student.getActiveBacklogs(), student.getTotalBacklogs(), studentBranchValue,mysqlDatetime},new BeanPropertyRowMapper<>(Role.class));
+        return jdbcTemplate.query(getRolesSql.toUpperCase(), new Object[]{student.getProgramme().equals("BTech"),student.getCpi(),student.getPassingYear(), student.getPassingYear(), student.getActiveBacklogs(), student.getTotalBacklogs(), studentBranchValue,mysqlDatetime},new BeanPropertyRowMapper<>(Role.class));
     }
     public List<Role> getRolesByCompanyId(Integer companyId){
         final String getRolesSql = "SELECT * from ROLE where CompanyID = ?";
-        return jdbcTemplate.query(getRolesSql, new Object[]{companyId}, new BeanPropertyRowMapper<>(Role.class));
+        return jdbcTemplate.query(getRolesSql.toUpperCase(), new Object[]{companyId}, new BeanPropertyRowMapper<>(Role.class));
     }
 
     public List<Role> getRolesByCompanyIdRole(Integer companyId,String role){
         final String getRolesSql = "SELECT * from ROLE where CompanyID = ? and ROLENAME=?";
-        return jdbcTemplate.query(getRolesSql, new Object[]{companyId,role}, new BeanPropertyRowMapper<>(Role.class));
+        return jdbcTemplate.query(getRolesSql.toUpperCase(), new Object[]{companyId,role}, new BeanPropertyRowMapper<>(Role.class));
     }
 
 }
